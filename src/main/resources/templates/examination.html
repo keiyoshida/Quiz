@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>テスト</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+     crossorigin="anonymous" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="center">
+        <form method="post" th:action="@{/scoring}">
+          <input type="hidden" name="userId" th:value="${userId}" />
+          <input type="hidden" name="genre" th:value="${genre}" />
+          <input type="hidden" name="startTime" th:value="${startTime}" />
+          <table class="table table-hover" id="question">
+            <thead>
+              <tr>
+                <th>問題</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="sentence : ${sentences}">
+                <td>
+                  <span th:text="${sentence.mainText}"></span>
+                  <br>
+                  <span th:text="${sentence.firstText}"></span>
+                  <input type="hidden" name="sentenceSecond" th:value="${sentence.secondText}" />
+                  <input type="hidden" name="sentenceFirst" th:value="${sentence.firstText}" />
+                  <input type="hidden" name="sentenceMain" th:value="${sentence.mainText}" />
+                  <input type="hidden" name="sentenceId" th:value="${sentence.id}" />
+                  <input type="text" name="answer" th:value="${writeText}" />
+                  <span th:text="${sentence.secondText}"></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <input type="submit" value="採点" class="btn btn-info col-xs-offset-5 col-sm-offset-5 col-md-offset-5 col-xs-2 col-sm-2 col-md-2" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

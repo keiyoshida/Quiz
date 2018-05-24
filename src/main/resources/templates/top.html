@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>サンプル</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+     crossorigin="anonymous" />
+  </head>
+  
+  <body>
+    <div align="center">
+      <h1>サンプルページへようこそ</h1>
+      <form name="login" method="post" th:action="@{/login}">
+        <div class="row">
+          <div class="col-xs-offset-4 col-sm-offset-4 col-md-offset-4 col-xs-4 col-sm-4 col-md-4">
+            <p><label style="font-size:15px;">User Name&nbsp;:&nbsp;&nbsp;</label><input required class="from-control" type="text" name="userName" th:value="${userName}" /></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-offset-4 col-sm-offset-4 col-md-offset-4 col-xs-4 col-sm-4 col-md-4">
+            <p><label style="font-size:15px;">Password&nbsp;&nbsp;:&nbsp;&nbsp;</label><input required class="from-control" type="password" pattern="^[0-9]+$" maxlength='4' minlength='4' name="password" th:value="${password}" /></p>
+          </div>
+        </div>
+        <input type="submit" value="ログイン" class="btn btn-primary col-xs-offset-5 col-sm-offset-5 col-md-offset-5 col-xs-2 col-sm-2 col-md-2" style="HEIGHT: 40px;" />
+      </form>
+      <p><br></p>
+      <form name="register" method="get" th:action="@{/register}">
+        <div class="row">
+          <input type="submit" value="新規作成" class="btn btn-primary col-xs-offset-5 col-sm-offset-5 col-md-offset-5 col-xs-2 col-sm-2 col-md-2" style="HEIGHT: 40px;" />
+        </div>
+      </form>
+      <p><span style="color:#FF0000;" th:text="${alert}"></span><br></p>
+    </div>
+  </body>
+</html>

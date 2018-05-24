@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+     crossorigin="anonymous" />
+    <title>Index Page</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="center">
+        <h1>ようこそ<span th:text=${userName}></span>さん</h1>
+        <table class="table table-bordered table-hover" id="history">
+          <thead>
+            <tr>
+              <th class="col-xs-4 col-sm col-sm-4 col-md-4">ジャンル</th>
+              <th class="col-xs-4 col-sm col-sm-4 col-md-4">スコア</th>
+              <th class="col-xs-4 col-sm col-sm-4 col-md-4">実施日</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="data : ${dataList}">
+              <td th:text="${data.genre}"></td>
+              <td th:text="${data.score}"></td>
+              <td th:text="${data.start_datetime}"></td>
+            </tr>
+          </tbody>
+        </table>
+        <form name="test" method="post" th:action="@{/test-configuration}">
+          <input type="hidden" name="userId" th:value="${userId}" />
+          <input type="submit" value="テストを受験" class="btn btn-info col-xs-offset-5 col-sm-offset-5 col-md-offset-5 col-xs-2 col-sm-2 col-md-2" style="HEIGHT: 40px;" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
