@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class QuizController {
+public class MainController {
 	
 	private UserDao userDao;
 	
@@ -21,7 +21,7 @@ public class QuizController {
 	
 	private QuestionDao questionDao;
 	
-	public QuizController(
+	public MainController(
 			final UserDao userDao,
 			final ScoreDao scoreDao,
 			final QuestionDao questionDao) {
