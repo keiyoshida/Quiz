@@ -129,7 +129,7 @@ public class QuizController {
 	// 採点処理
 	// 処理完了後、採点結果ページへ遷移
 	@PostMapping("/scoring")
-	public String scoring(List<Integer> sentenceId, List<String> sentenceMain, List<String> sentenceFirst, List<String> sentenceSecond, List<String> answer) {
+	public String scoring(List<Integer> sentenceId, List<String> sentenceMain, List<String> sentenceFirst, List<String> sentenceSecond, List<String> answer, int userId) {
 		return "scoring";
 	}
 	
