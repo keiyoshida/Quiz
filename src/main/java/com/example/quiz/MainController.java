@@ -2,6 +2,7 @@ package com.example.quiz;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -129,7 +130,22 @@ public class MainController {
 	// 採点処理
 	// 処理完了後、採点結果ページへ遷移
 	@PostMapping("/scoring")
-	public String scoring(List<Integer> sentenceId, List<String> sentenceMain, List<String> sentenceFirst, List<String> sentenceSecond, List<String> answer, int userId) {
+	public String scoring(int[] sentenceId
+/*			List<String> sentenceMain,
+			List<String> sentenceFirst,
+			List<String> sentenceSecond,
+			List<String> answer,
+			List<String> writeText,
+			int userId,
+			String genre,
+			Timestamp startTime*/) {
+		/*sentenceId.forEach(id -> {
+			System.out.println(id);
+		});*/
+		List<int[]> ids = Arrays.asList(sentenceId);
+		ids.forEach(id -> {
+			System.out.println(id[0]);
+		});
 		return "scoring";
 	}
 	
