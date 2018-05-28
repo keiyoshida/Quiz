@@ -2,7 +2,6 @@ package com.example.quiz;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -118,11 +117,11 @@ public class MainController {
 		}
 		
 		Date dt = new Date();
-		Timestamp startTime = new Timestamp(dt.getTime());
+		Timestamp startDateTime = new Timestamp(dt.getTime());
 		
 		model.addAttribute("userId", userId);
 		model.addAttribute("genre", genre);
-		model.addAttribute("startTime", startTime);
+		model.addAttribute("startDateTime", startDateTime);
 		
 		return "examination";
 	}
@@ -130,7 +129,8 @@ public class MainController {
 	// 採点処理
 	// 処理完了後、採点結果ページへ遷移
 	@PostMapping("/scoring")
-	public String scoring(int[] sentenceId
+	public String scoring(Score score
+			//List<Integer> sentenceId
 /*			List<String> sentenceMain,
 			List<String> sentenceFirst,
 			List<String> sentenceSecond,
@@ -142,10 +142,10 @@ public class MainController {
 		/*sentenceId.forEach(id -> {
 			System.out.println(id);
 		});*/
-		List<int[]> ids = Arrays.asList(sentenceId);
-		ids.forEach(id -> {
-			System.out.println(id[0]);
-		});
+		/*sentenceId.forEach(id -> {
+			System.out.println(id);
+		});*/
+		System.out.println(score);
 		return "scoring";
 	}
 	

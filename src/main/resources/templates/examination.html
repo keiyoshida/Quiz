@@ -14,7 +14,7 @@
         <form method="post" th:action="@{/scoring}">
           <input type="hidden" name="userId" th:value="${userId}" />
           <input type="hidden" name="genre" th:value="${genre}" />
-          <input type="hidden" name="startTime" th:value="${startTime}" />
+          <input type="hidden" name="startDateTime" th:value="${startDateTime}" />
           <table class="table table-hover" id="question">
             <thead>
               <tr>
@@ -30,7 +30,7 @@
                   <input type="hidden" name="sentenceSecond" th:value="${sentence.secondText}" />
                   <input type="hidden" name="sentenceFirst" th:value="${sentence.firstText}" />
                   <input type="hidden" name="sentenceMain" th:value="${sentence.mainText}" />
-                  <input type="hidden" name="sentenceId" th:value="${sentence.id}" />
+                  <input type="hidden" name="|sentenceId[${dentence.id}]|" th:value="${sentence.id}" />
                   <input type="text" name="answer" th:value="${writeText}" />
                   <span th:text="${sentence.secondText}"></span>
                 </td>
