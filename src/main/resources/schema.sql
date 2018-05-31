@@ -32,4 +32,4 @@ INSERT INTO question (genre, mainText, firstText, secondText, answer) VALUES ('P
 
 INSERT INTO question (genre, mainText, firstText, secondText, answer) VALUES ('PostgreSQL', '一時テーブル(temp)を使用する際の構文(3単語)', '', 'temp1;', 'create temp table');
 INSERT INTO question (genre, mainText, firstText, secondText, answer) VALUES ('Java', 'Java言語におけるfor文（変数はiを使用する, 0<=i<10で1つずつインクリメントする、初期構文でiを宣言する）', '', '{ System.out.println(i); }', 'for(int i=0;i<10;i++)');
-INSERT INTO question (genre, mainText, firstText, secondText, answer) VALUES ('Python', 'Python言語のfor文を利用して1~10の総和を求める(0は加算しない)', 'for i ', '', 'in range(1,11)');
+INSERT INTO question (genre, mainText, firstText, secondText, answer) VALUES ('Python', 'Python言語のwhile文で無限ループを行う（引数1つ）', 'while', '', '(True):');

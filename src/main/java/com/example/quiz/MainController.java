@@ -2,8 +2,11 @@ package com.example.quiz;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -129,24 +132,32 @@ public class MainController {
 	// 採点処理
 	// 処理完了後、採点結果ページへ遷移
 	@PostMapping("/scoring")
-	public String scoring(Score score
-			//List<Integer> sentenceId
-/*			List<String> sentenceMain,
-			List<String> sentenceFirst,
-			List<String> sentenceSecond,
-			List<String> answer,
-			List<String> writeText,
-			int userId,
-			String genre,
-			Timestamp startTime*/) {
-		/*sentenceId.forEach(id -> {
-			System.out.println(id);
-		});*/
-		/*sentenceId.forEach(id -> {
-			System.out.println(id);
-		});*/
-		System.out.println(score);
+	public String scoring(Score score, Sentence sentence, Model model) {
+		List<Sentence> sentences = convertAttributeStringToSentenceList(sentence);
+		double scored = 0.0;
+
+		sentences = confirmationAnswer(sentences);
+		for(Sentence sent: sentences) {
+			if(sent.isResult()) {
+				scored += 100.0/sentences.size();
+			}
+		}
+		score.setScore((int) scored);
+		model.addAttribute("sentences", sentences);
+		model.addAttribute("score", score.getScore());
+		model.addAttribute("userId", score.getUserId());
+		model.addAttribute("genre", score.getGenre());
+		model.addAttribute("startDateTime", score.getStartDateTime());
+		
 		return "scoring";
+	}
+	
+	@PostMapping("/result")
+	public String result(Score score, RedirectAttributes attr) {
+		scoreDao.insert(score);
+		attr.addFlashAttribute("userName", userDao.findUserById(score.getUserId()).getName());
+		
+		return "redirect:index";
 	}
 	
 	// ユーザトップページにそのユーザの最近の受験結果を表示する
@@ -163,7 +174,7 @@ public class MainController {
 		attr.addFlashAttribute("dataList", userData);
 	}
 	
-	// 問題表示用関数(採点の際にも利用)
+	// 問題表示用関数
 	public void printQuestions(List<Question> questions, Model model) {
 		List<Sentence> sentences = new ArrayList<>();
 		
@@ -181,5 +192,51 @@ public class MainController {
 		});
 		
 		model.addAttribute("sentences", sentences);
+	}
+	
+	public List<Sentence> convertAttributeStringToSentenceList(Sentence sentence){
+		List<Sentence> sentences = new ArrayList<>();
+		List<String> ids = Arrays.asList(sentence.getId().split(","));
+		List<String> answers = Arrays.asList(sentence.getAnswer().split(","));
+		Iterator<String> it = answers.iterator();
+		
+		ids.forEach(id -> {
+			Question question = questionDao.findQuestionById(Integer.valueOf(id));
+			String answer;
+			try {
+				answer = it.next();
+			} catch(NoSuchElementException e) {
+				answer = "";
+			}
+			sentences.add(new Sentence(
+					question.getId(),
+					question.getMainText(),
+					question.getGenre(),
+					question.getFirstText(),
+					question.getSecondText(),
+					answer,
+					false,
+					question.getAnswer()
+					)
+			);
+		});
+		
+		return sentences;
+	}
+	
+	public List<Sentence> confirmationAnswer(List<Sentence> sentences){
+		for(Sentence sentence : sentences) {
+			if(sentence.getGenre().equals("Java") || sentence.getGenre().equals("Python")) {
+				if(sentence.getAnswer().replaceAll(" ", "").equals(sentence.getRightAnswer())) {
+					sentence.setResult(true);
+				}
+			} else if(sentence.getGenre().equals("PostgreSQL")) {
+				if(sentence.getAnswer().replaceAll(" ", "").toLowerCase().equals(sentence.getRightAnswer().toLowerCase())) {
+					sentence.setResult(true);
+				}
+			}
+		}
+		
+		return sentences;
 	}
 }

@@ -15,10 +15,11 @@ public class QuestionDao {
 		this.jdbc = jdbc;
 	}
 	
-	public List<Question> findQuestion(){
-		return jdbc.query(
-				"SELECT * FROM question ORDER BY id;",
-				new BeanPropertyRowMapper<>(Question.class)
+	public Question findQuestionById(int id){
+		return jdbc.queryForObject(
+				"SELECT * FROM question WHERE id = ?;",
+				new BeanPropertyRowMapper<>(Question.class),
+				id
 		);
 	}
 	

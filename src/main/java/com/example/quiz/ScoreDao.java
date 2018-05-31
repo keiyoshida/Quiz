@@ -24,6 +24,7 @@ public class ScoreDao {
 	}
 	
 	public int insert(final Score score) {
+		System.out.println(score.getGenre());
 		return jdbc.update(
 				"INSERT INTO score (userId, score, genre, startDateTime) VALUES (?, ?, ?, ?);",
 				score.getUserId(),
